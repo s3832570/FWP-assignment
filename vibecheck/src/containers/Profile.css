@@ -1,5 +1,42 @@
 .profileImage {
     position: relative;
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
+}
+
+.container-profile {
+    padding: 10px;
+    width: 320px;
+    border: thin solid black;
+}
+
+.email {
+    font-size: 14px;
+    color: rgb(103, 103, 104);
+}
+
+td {
+    text-align: center;
+    width: 150px;
+}
+
+table {
+    table-layout: fixed;
+    width: 299px;
+    border-bottom: thin solid black;
+    border-bottom-: 290px;
+}
+
+button {
+    border: 0cm;
+    padding: 0cm;
+}
+
+p {
+    margin-top: 5px;
+    font-size: 15px;
+}
+
+img {
+    background-color: transparent;
 }

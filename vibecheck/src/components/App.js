@@ -8,7 +8,7 @@ import { useState } from "react";
 import "../containers/App.css";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { getLoggedInUser, setLoggedInUser, removeLoggedInUser, getUser } from "../data/repository";
+import { getLoggedInUser, setLoggedInUser, getUser } from "../data/repository";
 
 function App() {
   var loggedInUsername = JSON.parse(getLoggedInUser());
