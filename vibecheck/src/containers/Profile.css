@@ -1,42 +1,127 @@
-.profileImage {
-    position: relative;
-    width: 100px;
-    height: 100px;
+.profile-wrapper {
+  height: 90%;
+}
+
+.profile-image-container {
+  height: 110px;
+  width: 50%;
+  vertical-align: middle;
+}
+
+.profile-image {
+  border-radius: 50%;
+  display: block;
+  width: 100px;
+  height: 100%;
 }
 
 .container-profile {
-    padding: 10px;
-    width: 320px;
-    border: thin solid black;
+  padding: 10px;
+  width: 50%;
+  border: thin dashed black;
+  float: left;
+  display: inline-block;
+  background-color: rgb(250, 249, 246);
 }
 
 .email {
-    font-size: 14px;
-    color: rgb(103, 103, 104);
+  font-size: 14px;
+  color: rgb(103, 103, 104);
 }
 
-td {
+.editProfile {
+  width: 400px;
+  border: thin dashed black;
+  background-color: rgb(250, 249, 246);
+  float: left;
+  margin-left: 20px;
+  box-shadow: 10px 10px 5px grey;
+}
+
+.edit-table-row {
+  width: 390px;
+  text-align: center;
+}
+
+.profile-table {
+  table-layout: fixed;
+  width: 100%;
+  border-bottom: thin solid black;
+}
+
+.editTable {
+  padding: 20%;
+  margin: 0 auto;
+  margin-top: 10px;
+  width: 100px;
+}
+
+.edit-buttons {
+  height: 50px;
+  background-color: transparent;
+  text-align: center;
+}
+
+.update-button {
+  margin-left: 0;
+  background-color: rgb(250, 186, 127);
+  border-radius: 5px;
+}
+
+.cancel-button {
+  margin-left: 5px;
+  background-color: rgb(250, 186, 127);
+  border-radius: 5px;
+}
+
+.popup-yesNo {
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.yesNoButtons {
+  background-color: dodgerblue;
+  padding: 3px 15px;
+  text-align: center;
+  border-radius: 4px;
+  color: beige;
+}
+
+.yesNoButtons:hover {
+  background-color: coral;
+}
+
+.edit-avatar-button {
     text-align: center;
-    width: 150px;
+    padding: 5%;
 }
 
-table {
-    table-layout: fixed;
-    width: 299px;
-    border-bottom: thin solid black;
-    border-bottom-: 290px;
+.options {
+    margin-left: 10px;
+    background-color: transparent;
+}
+
+.options:hover {
+    background-color: transparent;
+}
+
+.options:focus {
+    background-color: rgb(250, 201, 250);
+}
+
+tr,
+td:first-child {
+  width: 1px;
+  white-space: nowrap;
 }
 
 button {
-    border: 0cm;
-    padding: 0cm;
+  border: 0cm transparent;
+  padding: 0cm;
 }
 
 p {
-    margin-top: 5px;
-    font-size: 15px;
-}
-
-img {
-    background-color: transparent;
+  margin-top: 5px;
+  font-size: 15px;
 }

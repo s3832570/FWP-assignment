@@ -3,34 +3,73 @@ import Login from "./Login";
 import Home from "./Home";
 import SignUp from "./SignUp";
 import Profile from "./Profile";
+import Footer from "./Footer";
+import Forum from "./Forum";
+import EditPost from "./Popups/EditPost";
+import EditProfile from "./Popups/EditProfile";
 
-import { useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import "../containers/App.css";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { getLoggedInUser, setLoggedInUser, getUser } from "../data/repository";
+import {
+  getLoggedInUser,
+  addOrUpdateUser,
+  getUsers,
+  removeUser,
+  removeLoggedInUser,
+} from "../data/userRepository";
+import {
+  createOrUpdatePost,
+  deletePost,
+  getPosts,
+} from "../data/postRepository";
+
+const userContext = createContext();
+const LOGGED_IN_USER = "loggedInUser";
+
+/*
+- try and use useContext
+- create homepage
+- create footer
+- Make it so usernames have to be unqiue
+- user can only edit post they've made
+*/
 
 function App() {
-  var loggedInUsername = JSON.parse(getLoggedInUser());
+  const [user, setUser] = useState(getLoggedInUser());
+  const [postToEdit, setPostToEdit] = useState({
+    postID: "",
+    user: "",
+    post: "",
+  });
 
-  const [username, setUsername] = useState(loggedInUsername.username);
+  useEffect(() => {
+    const user = localStorage.getItem("loggedInUser");
+    if (user && user !== JSON.stringify(getLoggedInUser())) {
+      setUser(user);
+    }
+  }, []);
 
-  const loginUser = (username) => {
-    setUsername(username);
-    setLoggedInUser(username);
+  useEffect(() => {
+    localStorage.setItem(LOGGED_IN_USER, JSON.stringify(user));
+  }, [user]);
+
+  const loginUser = (user) => {
+    setUser(user);
   };
 
   const logoutUser = () => {
-    setLoggedInUser(null);
-    setUsername(null);
+    removeLoggedInUser();
+    setUser(null);
   };
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
       <Router>
         <Navigator
           className="nav-wrapper"
-          username={username}
+          user={user}
           logoutUser={logoutUser}
         />
         <div className="container my-3">
@@ -42,61 +81,57 @@ function App() {
                   {...props}
                   loginUser={loginUser}
                   logoutUser={logoutUser}
+                  getUsers={getUsers}
+                  setUser={setUser}
                 />
               )}
             />
             <Route exact path="/" component={Home} />
             <Route
               path="/signup"
-              render={(props) => <SignUp {...props} loginUser={loginUser} />}
+              render={(props) => (
+                <SignUp
+                  {...props}
+                  loginUser={loginUser}
+                  addOrUpdateUser={addOrUpdateUser}
+                  getUsers={getUsers}
+                />
+              )}
             />
-            <Route path="/profile">
-              <Profile username={username} getUser={getUser}/>
-            </Route>
+            <Route
+              path="/profile"
+              render={(props) => (
+                <Profile
+                  {...props}
+                  user={user}
+                  addOrUpdateUser={addOrUpdateUser}
+                  getUsers={getUsers}
+                  setUser={setUser}
+                  removeUser={removeUser}
+                  logoutUser={logoutUser}
+                />
+              )}
+            ></Route>
+            <Route
+              path="/forum"
+              render={(props) => (
+                <Forum
+                  {...props}
+                  user={user}
+                  createOrUpdatePost={createOrUpdatePost}
+                  getPosts={getPosts}
+                  deletePost={deletePost}
+                  setPostToEdit={setPostToEdit}
+                  EditPost={EditPost}
+                />
+              )}
+            ></Route>
           </Switch>
         </div>
       </Router>
+      <Footer />
     </div>
   );
 }
 
 export default App;
-// class App extends Component {
-//   constructor(props) {
-//     console.log("constructor");
-//     super(props);
-//     this.state = { username: null };
-//   }
-
-//   loginUser = (username) => {
-//     console.log(username);
-//     this.setState({ username: username });
-//     console.log("logging in " + this.props.username);
-//   };
-
-//   logoutUser = () => {
-//     console.log("logging user out");
-//     this.setState({ username: null});
-//   };
-
-//   render() {
-//     return (
-//       <div>
-//         <Router>
-//           <Navigator className="nav-wrapper" username={this.state.username} logoutUser={this.logoutUser}/>
-//           <Switch>
-//             <Route path='/login' render={props => (
-//               <Login {...props} loginUser={this.loginUser} logoutUser={this.logoutUser}/>
-//             )} />
-//             <Route exact path='/' component={Home}/>
-//             <Route path='/signup' render={props => (
-//               <SignUp {...props}/>
-//             )} />
-//           </Switch>
-//         </Router>
-//       </div>
-//     );
-//   }
-// }
-
-// export default App;

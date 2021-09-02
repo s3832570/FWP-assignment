@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import { propTypes } from "react-bootstrap/esm/Image";
-import { useHistory } from "react-router-dom";
-import { verifyUser } from "../data/repository";
+import { verifyUser } from "../data/userRepository";
 
 const useLogin = (callback, props) => {
   const [values, setValues] = useState({
@@ -19,8 +17,12 @@ const useLogin = (callback, props) => {
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
     if (verifyUser(values.username, values.password) === true) {
-      props.loginUser(values.username);
+
+      const users = props.getUsers();
+      console.log("effect logging in " + users[values.username].username);
+      props.setUser(users[values.username])
       props.history.push("/");
+
     }
     setError("Username or password is incorrect.");
   };

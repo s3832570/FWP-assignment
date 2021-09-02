@@ -46,12 +46,23 @@ function SignUp(props) {
           </Form.Group>
 
           <Form.Group className="lastname" controlId="formBasicLastname">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Lastname</Form.Label>
             <Form.Control
               type="lastname"
               name="lastname"
               placeholder="Lastname"
               defaultValue={values.lastname || ""}
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group className="email" controlId="formBasicEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              placeholder="email"
+              defaultValue={values.email || ""}
               onChange={handleChange}
             />
           </Form.Group>

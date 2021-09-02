@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { addNewUser } from "../data/repository";
 
 const useSignUp = (props) => {
   const [values, setValues] = useState({
@@ -7,21 +6,31 @@ const useSignUp = (props) => {
     password: "",
     firstname: "",
     lastname: "",
-    email: ""
+    email: "",
+    joinDate: "",
+    avatar: "https://data.whicdn.com/images/355233905/original.jpg",
   });
   const [error] = useState("");
 
   const handleChange = (e) => {
     e.persist();
     setValues((values) => ({ ...values, [e.target.name]: e.target.value }));
-    console.log(values.username);
   };
 
   const handleSubmit = (e) => {
-    console.log("Signing up user");
     if (e) e.preventDefault();
-    addNewUser(values.username, values.password, values.firstname, values.password, values.email);
-    props.loginUser(values.username);
+
+    const d1 = new Date();
+    const date = d1.toDateString();
+
+    const user = { ...values };
+    user.joinDate = date;
+
+    props.addOrUpdateUser(user);
+
+    const users = props.getUsers();
+
+    props.loginUser(users[values.username]);
     props.history.push("/");
   };
 
