@@ -1,6 +1,8 @@
 @media all and (min-width: 480px) {
   .Login {
-    padding: 60px 0;
+    justify-content: center;
+  display: flex;
+  align-self: center;
   }
 
   .Login form {
@@ -12,23 +14,25 @@
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-    background-color: aquamarine;
-    border-color: aquamarine;
+    background-color: rgb(250, 186, 127);
+    color: white;
+  padding: 1%;
+  border-radius: 6%;
   }
 
   .submit:hover {
-    background-color: hotpink;
-    border-color: hotpink;
+    background-color: rgb(247, 233, 158);
   }
 
   .Details {
-    margin: auto;
     width: 30%;
-    background-color: rgb(241, 241, 241);
-    border-color: rgb(214, 214, 214);
-    border-radius: 25px;
-    box-shadow: 5px 5px 2.5px grey;
-    padding: 10px;
+    margin: 0;
+    position: relative;
+    align-self: center;
+    border: thin dashed black;
+    padding: 4%;
+    background-color: rgb(250, 249, 246);
+    box-shadow: 10px 10px 5px rgb(169, 134, 173);
   }
 
   .error {

@@ -5,18 +5,23 @@ const usePosts = (props) => {
   const [values, setValues] = useState({
     postID: "",
     user: "",
+    username: "",
     post: "",
+    img: ""
   });
 
   const [error, setError] = useState("");
 
   const [editPost, setEditPost] = useState(false);
 
+  const [attachImage, setAttachImage] = useState(false);
+
   useEffect(() => {}, [values]);
 
   const handleChange = (e) => {
     e.persist();
     setValues((values) => ({ ...values, [e.target.name]: e.target.value }));
+    console.log(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -27,6 +32,7 @@ const usePosts = (props) => {
     console.log(post.postID);
 
     post.user = props.user.firstname + " " + props.user.lastname;
+    post.username = props.user.username;
 
     props.createOrUpdatePost(post);
   };
@@ -55,12 +61,9 @@ const usePosts = (props) => {
     setEditPost(!editPost);
   };
 
-  const updatePost = (e) => {
-    //   if (e) e.preventDefault();
-    //   const post = { postID: editPost.id, user: editPost.user, post: editPost.post };
-    //   console.log("new post " + post.postID);
-    //   props.createOrUpdatePost(post);
-  };
+  const toggleAttachImage = () => {
+    setAttachImage(!attachImage);
+  }
 
   return {
     handleChange,
@@ -72,9 +75,9 @@ const usePosts = (props) => {
     error,
     deletePost,
     editPost,
-    setEditPost,
     togglePopup,
-    updatePost,
+    attachImage,
+    toggleAttachImage
   };
 };
 

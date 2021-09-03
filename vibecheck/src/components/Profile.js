@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import editTool from "../edit-tool.png";
-import deleteIcon from "../delete-icon.png";
+import editTool from "../icons/edit-icon.png";
+import deleteIcon from "../icons/delete-icon.png";
 import "../containers/Profile.css";
 import useProfile from "../hooks/useProfile";
 import Popup from "./Popup";
@@ -11,6 +11,7 @@ function Profile(props) {
   const {
     handleChange,
     values,
+    setValues,
     updateProfile,
     editProfile,
     showEditProfile,
@@ -67,6 +68,8 @@ function Profile(props) {
           editProfile={editProfile}
           setUser={props.setUser}
           getUsers={props.getUsers}
+          values={values}
+          setValues={setValues}
         />
       ) : null}
       {showPopup && (

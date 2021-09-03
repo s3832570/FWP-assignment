@@ -18,6 +18,7 @@ import {
   getUsers,
   removeUser,
   removeLoggedInUser,
+  checkUserAvailable
 } from "../data/userRepository";
 import {
   createOrUpdatePost,
@@ -32,17 +33,10 @@ const LOGGED_IN_USER = "loggedInUser";
 - try and use useContext
 - create homepage
 - create footer
-- Make it so usernames have to be unqiue
-- user can only edit post they've made
 */
 
 function App() {
   const [user, setUser] = useState(getLoggedInUser());
-  const [postToEdit, setPostToEdit] = useState({
-    postID: "",
-    user: "",
-    post: "",
-  });
 
   useEffect(() => {
     const user = localStorage.getItem("loggedInUser");
@@ -95,6 +89,7 @@ function App() {
                   loginUser={loginUser}
                   addOrUpdateUser={addOrUpdateUser}
                   getUsers={getUsers}
+                  checkUserAvailable={checkUserAvailable}
                 />
               )}
             />
@@ -118,10 +113,10 @@ function App() {
                 <Forum
                   {...props}
                   user={user}
+                  getUsers={getUsers}
                   createOrUpdatePost={createOrUpdatePost}
                   getPosts={getPosts}
                   deletePost={deletePost}
-                  setPostToEdit={setPostToEdit}
                   EditPost={EditPost}
                 />
               )}

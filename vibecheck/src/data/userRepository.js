@@ -22,7 +22,8 @@ function addOrUpdateUser(user) {
 
 // Checks whether username if already taken or not
 function checkUserAvailable(username) {
-  if (localStorage.getItem(username) === null) {
+  const users = getUsers();
+  if (!users[username]) {
     return true;
   }
   return false;

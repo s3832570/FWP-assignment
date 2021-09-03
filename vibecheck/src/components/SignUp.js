@@ -5,7 +5,7 @@ import useSignUp from "../hooks/useSignUp";
 import "../containers/SignUp.css";
 
 function SignUp(props) {
-  const { handleChange, handleSubmit, values, error } = useSignUp(props);
+  const { handleChange, values, handleSubmit, error } = useSignUp(props);
 
   return (
     <div className="SignUp">
@@ -67,15 +67,16 @@ function SignUp(props) {
             />
           </Form.Group>
 
-          <Button
+          <button
             className="submit"
             variant="primary"
             type="submit"
             onClick={handleSubmit}
           >
             Sign up
-          </Button>
+          </button>
         </Form>
+        {error && <p className="help is-danger">{error}</p>}
       </div>
     </div>
   );

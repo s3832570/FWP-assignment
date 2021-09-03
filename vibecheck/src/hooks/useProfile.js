@@ -4,19 +4,16 @@ const useProfile = (props) => {
   const [showEditProfile, setShowEditProfile] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  const username = props.user.username;
-  const users = props.getUsers();
-
-
+  const user = props.user;
 
   const [values, setValues] = useState({
-    username: users[username].username,
-    password: users[username].password,
-    firstname: users[username].firstname,
-    lastname: users[username].lastname,
-    email: users[username].email,
-    joinDate: users[username].joinDate,
-    avatar: users[username].avatar
+    username: user.username,
+    password: user.password,
+    firstname: user.firstname,
+    lastname: user.lastname,
+    email: user.email,
+    joinDate: user.joinDate,
+    avatar: user.avatar,
   });
 
   const editProfile = () => {
@@ -47,8 +44,6 @@ const useProfile = (props) => {
     setShowPopup(!showPopup);
   };
 
-
-
   return {
     values,
     setValues,
@@ -58,7 +53,7 @@ const useProfile = (props) => {
     showEditProfile,
     deleteUser,
     togglePopup,
-    showPopup
+    showPopup,
   };
 };
 

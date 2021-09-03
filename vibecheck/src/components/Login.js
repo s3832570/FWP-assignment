@@ -19,6 +19,7 @@ return (
     <div className="Login">
         <div className="Details">
         <Form>
+            <h2>Login</h2>
             <Form.Group className="username" controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -41,14 +42,14 @@ return (
             />
             </Form.Group>
 
-            <Button
+            <button
             className="submit"
             variant="primary"
             type="submit"
             onClick={handleSubmit}
             >
             Login
-            </Button>
+            </button>
             <Form.Group className="SignUp-link">
             <Form.Text>Don't have an account? Sign up <a href='/signup'>here</a>
             </Form.Text>

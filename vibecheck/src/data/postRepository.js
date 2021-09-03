@@ -13,8 +13,6 @@ function initPosts() {
 function createOrUpdatePost(post) {
   const posts = getPosts();
 
-  console.log(post.postID);
-
   if (!posts[post.postID]) {
     post.postID = getNumberOfPosts();
     posts[post.postID] = post;

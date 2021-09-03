@@ -1,15 +1,8 @@
-import { useState } from "react";
-import useProfile from "../../hooks/useProfile";
 import Popup from "../Popup";
 import "../../containers/Profile.css";
+import useEditProfile from "../../hooks/useEditProfile";
 
 function EditProfile(props) {
-  const [editAvatar, setEditAvatar] = useState(false);
-
-  const togglePopup = () => {
-    setEditAvatar(!editAvatar);
-  };
-
   const avatars = {
     spongebob:
       "https://i.pinimg.com/564x/6e/a5/70/6ea570193869b9e6539d4de4927cc75f.jpg",
@@ -24,12 +17,16 @@ function EditProfile(props) {
       "https://i.pinimg.com/564x/09/d1/87/09d187d157a8b1b90bc5f9c70a44f4b0.jpg",
   };
 
-  const { setValues, values, updateProfile } = useProfile(props);
-
-  const changeAvatar = (src) => {
-    console.log(src);
-    setValues((values) => ({ ...values, avatar: src }));
-  };
+  const {
+    values,
+    changeAvatar,
+    updateProfile,
+    uploadingAvatar,
+    toggleUploadAvatar,
+    togglePopup,
+    editAvatar,
+    handleChange,
+  } = useEditProfile(props);
 
   return (
     <div id="edit profile" className="editProfile">
@@ -47,7 +44,7 @@ function EditProfile(props) {
                 type="text"
                 name="firstname"
                 id="firstname"
-                defaultValue={values.firstname}
+                defaultValue={props.values.firstname}
                 onChange={props.handleChange}
               ></input>
             </td>
@@ -60,7 +57,7 @@ function EditProfile(props) {
                 type="text"
                 name="lastname"
                 id="lastname"
-                defaultValue={values.lastname}
+                defaultValue={props.values.lastname}
                 onChange={props.handleChange}
               ></input>
             </td>
@@ -73,7 +70,7 @@ function EditProfile(props) {
                 type="text"
                 name="email"
                 id="email"
-                defaultValue={values.email}
+                defaultValue={props.values.email}
                 onChange={props.handleChange}
               ></input>
             </td>
@@ -148,9 +145,6 @@ function EditProfile(props) {
                         />
                       </button>
                     </td>
-                    <td rowSpan="2" width="50%" valign="middle" style={{textAlign:"center"}}>
-                      <button onClick={togglePopup} style={{padding:"3%"}}>OK</button>
-                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -190,6 +184,45 @@ function EditProfile(props) {
                       </button>
                     </td>
                   </tr>
+                  <tr>
+                    <td colSpan="3" width="50%" style={{ textAlign: "center" }}>
+                      <button onClick={togglePopup} style={{ padding: "3%" }}>
+                        OK
+                      </button>
+                      <button
+                        style={{ marginLeft: "3px", padding: "3%" }}
+                        onClick={toggleUploadAvatar}
+                      >
+                        Upload avatar
+                      </button>
+                    </td>
+                  </tr>
+                  {uploadingAvatar ? (
+                    <tr>
+                      <td
+                        colSpan="3"
+                        width="50%"
+                        valign="top"
+                        style={{ textAlign: "center", marginTop: "10px" }}
+                      >
+                        <input
+                          name="avatar"
+                          defaultValue={values.avatar}
+                          type="text"
+                          placeholder="Enter image address"
+                          onChange={handleChange}
+                        />
+                        <button
+                          onClick={(e) => {
+                            updateProfile();
+                            toggleUploadAvatar();
+                          }}
+                        >
+                          Upload
+                        </button>
+                      </td>
+                    </tr>
+                  ) : null}
                 </tbody>
               </table>
             </div>
