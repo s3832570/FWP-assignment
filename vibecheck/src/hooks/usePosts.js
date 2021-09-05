@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { getPosts } from "../data/postRepository";
 
-const usePosts = (props) => {
+const usePosts = (props, context) => {
   const [values, setValues] = useState({
     postID: "",
     user: "",
@@ -16,32 +15,39 @@ const usePosts = (props) => {
 
   const [attachImage, setAttachImage] = useState(false);
 
+  const [filter, setFilter] = useState("");
+
   useEffect(() => {}, [values]);
+  useEffect(() => {}, [filter]);
 
   const handleChange = (e) => {
     e.persist();
     setValues((values) => ({ ...values, [e.target.name]: e.target.value }));
-    console.log(e.target.value);
   };
 
+  const handleFilterChange = (e) => {
+    e.persist();
+    setFilter(e.target.value);
+  }
+
+  /*
+  Creates a post object and adds a user and username to the object.
+  Then adds the object to local storage.
+  */
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
 
     const post = { ...values };
 
-    console.log(post.postID);
-
-    post.user = props.user.firstname + " " + props.user.lastname;
-    post.username = props.user.username;
+    post.user = context.firstname + " " + context.lastname;
+    post.username = context.username;
 
     props.createOrUpdatePost(post);
   };
 
-  const getAllPosts = () => {
-    const allPosts = getPosts();
-    return allPosts;
-  };
-
+  /*
+  Makes sure that the users post isn't empty, sets an error if it is.
+  */
   const validatePost = () => {
     if (values.post) {
       handleSubmit();
@@ -51,24 +57,31 @@ const usePosts = (props) => {
     }
   };
 
+  /*
+  Removes a users post from local storage.
+  */
   const deletePost = (postID) => {
     setValues((values) => ({ ...values, post: "" }));
 
     props.deletePost(postID);
   };
 
+  /*
+  Toggles whether a user is editing a post or not.
+  */
   const togglePopup = () => {
     setEditPost(!editPost);
   };
 
+  /*
+  Toggles whether a user is attaching an image or not.
+  */
   const toggleAttachImage = () => {
     setAttachImage(!attachImage);
   }
 
   return {
     handleChange,
-    handleSubmit,
-    getAllPosts,
     validatePost,
     values,
     setValues,
@@ -76,8 +89,11 @@ const usePosts = (props) => {
     deletePost,
     editPost,
     togglePopup,
+    handleSubmit,
     attachImage,
-    toggleAttachImage
+    toggleAttachImage,
+    filter,
+    handleFilterChange
   };
 };
 

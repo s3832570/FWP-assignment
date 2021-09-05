@@ -1,4 +1,4 @@
-.post-wrapper {
+.forum-wrapper {
   justify-content: center;
   display: flex;
   align-self: center;
@@ -11,7 +11,7 @@
 
 .post-table {
     margin: auto;
-    
+    width: 80%
 }
 
 .post-input {
@@ -118,4 +118,36 @@ textarea {
 .data-dropdown {
    text-align: right;
    padding-right: 2%;
+   background-color: rgb(245, 241, 229);
+}
+
+.replies {
+  text-align: left;
+  width: 100%;
+  padding: 4%;
+}
+
+.box {
+  margin: 2%;
+  background-color: rgb(224, 212, 174);
+  position: relative;
+  display: table;
+  border: none;
+}
+
+.box:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid rgb(224, 212, 174);
+  border-top: 10px solid rgb(224, 212, 174);
+  border-bottom: 10px solid transparent;
+  left: -20px;
+  top: 6px;
+}
+
+.create-reply {
+  border-bottom: thin dashed black;
 }

@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import "../containers/Navigator.css";
+import Logo from "../icons/logo.png";
 
 function Navigator(props) {
+
+  let context = useContext(props.loggedInUserContext);
+
   return (
     <Navbar className="navbar-light" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">Vibe Check</Navbar.Brand>
+        <Navbar.Brand href="#home"><img src={Logo} height="100px" alt="logo" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            {props.user === null ? (
+          {context === null ? (
               <React.Fragment>
                 <Nav.Link className="user-links" href="/login">
                   Login
@@ -24,15 +28,15 @@ function Navigator(props) {
             ) : (
               <React.Fragment>
                 <Nav.Link href="/profile">Profile</Nav.Link>
-                <Nav.Link href="/forum">Feed</Nav.Link>
+                <Nav.Link href="/forum">Forum</Nav.Link>
               </React.Fragment>
             )}
           </Nav>
           <Nav className="ms-auto">
-            {props.user !== null && (
+            {context !== null && (
               <React.Fragment>
                 <Navbar.Text className="welcome">
-                  Welcome, {props.user.username}!
+                  Welcome, {context.username}!
                 </Navbar.Text>
                 <Nav.Link href="/login" onClick={props.logoutUser}>
                   Logout

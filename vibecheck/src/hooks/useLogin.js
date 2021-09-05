@@ -1,28 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { verifyUser } from "../data/userRepository";
 
-const useLogin = (callback, props) => {
+const useLogin = (props) => {
   const [values, setValues] = useState({
     username: "",
     password: "",
   });
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (Object.keys(error).length === 0) {
-      callback();
-    }
-  }, [error]);
-
+  /* 
+  Verifies the users username and password, creates a user object and 
+  sets the user as the logged in user, then pushes user to profile page.
+  If the username or password is incorrect sets an error.
+  */
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
     if (verifyUser(values.username, values.password) === true) {
-
       const users = props.getUsers();
-      console.log("effect logging in " + users[values.username].username);
-      props.setUser(users[values.username])
-      props.history.push("/");
-
+      props.setUser(users[values.username]);
+      props.history.push("/profile");
     }
     setError("Username or password is incorrect.");
   };
@@ -30,8 +26,7 @@ const useLogin = (callback, props) => {
   const handleChange = (e) => {
     e.persist();
     setValues((values) => ({ ...values, [e.target.name]: e.target.value }));
-    console.log(values.username);
-    };
+  };
 
   return {
     handleSubmit,

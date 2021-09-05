@@ -1,33 +1,36 @@
 import { useState } from "react";
 
-const useEditProfile = (props) => {
+const useEditProfile = (props, context) => {
   const [showEditProfile, setShowEditProfile] = useState(false);
   const [editAvatar, setEditAvatar] = useState(false);
 
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
-  const user = props.user;
-
   const [values, setValues] = useState({
-    username: user.username,
-    password: user.password,
-    firstname: user.firstname,
-    lastname: user.lastname,
-    email: user.email,
-    joinDate: user.joinDate,
-    avatar: user.avatar,
+    username: context.username,
+    password: context.password,
+    firstname: context.firstname,
+    lastname: context.lastname,
+    email: context.email,
+    joinDate: context.joinDate,
+    avatar: context.avatar
   });
 
+  // Handles the values changes
   const handleChange = (e) => {
     e.persist();
     setValues((values) => ({ ...values, [e.target.name]: e.target.value }));
-    console.log(e.target.value);
   };
 
+  // Changes the users avatar
   const changeAvatar = (src) => {
     setValues((values) => ({ ...values, avatar: src }));
   };
 
+  /*
+   Creates a user object and then adds it to the localsotrage and 
+   sets the user as the logged in user
+   */
   const updateProfile = () => {
     const user = { ...values };
 
@@ -36,10 +39,12 @@ const useEditProfile = (props) => {
     setShowEditProfile(false);
   };
 
+  // Toggles whether the user is uploading an avatar
   const toggleUploadAvatar = () => {
     setUploadingAvatar(!uploadingAvatar);
   };
 
+  // Toggles whether a user is setting their avatar
   const togglePopup = () => {
     setEditAvatar(!editAvatar);
   };

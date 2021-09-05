@@ -1,8 +1,12 @@
-import Popup from "../Popup";
+import Popup from "./Popup";
 import "../../containers/Profile.css";
 import useEditProfile from "../../hooks/useEditProfile";
+import { useContext } from "react";
 
 function EditProfile(props) {
+
+  let context = useContext(props.loggedInUserContext);
+
   const avatars = {
     spongebob:
       "https://i.pinimg.com/564x/6e/a5/70/6ea570193869b9e6539d4de4927cc75f.jpg",
@@ -26,7 +30,7 @@ function EditProfile(props) {
     togglePopup,
     editAvatar,
     handleChange,
-  } = useEditProfile(props);
+  } = useEditProfile(props, context);
 
   return (
     <div id="edit profile" className="editProfile">
@@ -209,7 +213,7 @@ function EditProfile(props) {
                           name="avatar"
                           defaultValue={values.avatar}
                           type="text"
-                          placeholder="Enter image address"
+                          placeholder="Enter image address (URL)"
                           onChange={handleChange}
                         />
                         <button

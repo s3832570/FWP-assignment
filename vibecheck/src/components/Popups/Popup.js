@@ -1,4 +1,4 @@
-import "../containers/Popup.css";
+import "../../containers/Popup.css";
 
 const DeleteProfilePopup = props => {
     return (

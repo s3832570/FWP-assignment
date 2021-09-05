@@ -1,0 +1,15 @@
+.welcome-box {
+  margin: auto;
+  border: thin dashed black;
+  width: 90%;
+  background-color: rgb(250, 249, 246);
+  box-shadow: 10px 10px 5px rgb(169, 134, 173);
+  text-align: center;
+}
+
+.welcome-logo {
+  text-align: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: white;
+}

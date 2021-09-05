@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import useSignUp from "../hooks/useSignUp";
 import "../containers/SignUp.css";
 

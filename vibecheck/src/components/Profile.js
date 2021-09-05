@@ -1,24 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import editTool from "../icons/edit-icon.png";
 import deleteIcon from "../icons/delete-icon.png";
 import "../containers/Profile.css";
 import useProfile from "../hooks/useProfile";
-import Popup from "./Popup";
+import Popup from "./Popups/Popup";
 import EditProfile from "./Popups/EditProfile";
 
 function Profile(props) {
+  
+  let context = useContext(props.loggedInUserContext);
+
   const {
     handleChange,
     values,
     setValues,
-    updateProfile,
     editProfile,
     showEditProfile,
     deleteUser,
     togglePopup,
     showPopup,
-  } = useProfile(props);
+  } = useProfile(props, context);
 
   return (
     <div className="profile-wrapper">
@@ -32,9 +34,8 @@ function Profile(props) {
               <td rowSpan="2" valign="middle">
                 <img
                   className="profile-image"
-                  src={props.user.avatar}
-                  alt="display image"
-                  
+                  src={context.avatar}
+                  alt="avatar"
                 />
               </td>
               <td valign="bottom">
@@ -42,10 +43,10 @@ function Profile(props) {
               </td>
               <td rowSpan="2">
                 <button className="options" onClick={editProfile}>
-                  <img src={editTool} height="30px" />
+                  <img src={editTool} height="30px" alt="edit-icon" />
                 </button>
                 <button className="options" onClick={togglePopup}>
-                  <img src={deleteIcon} height="30px" />
+                  <img src={deleteIcon} height="30px" alt="delete-icon" />
                 </button>
               </td>
             </tr>
@@ -62,7 +63,8 @@ function Profile(props) {
       </div>
       {showEditProfile ? (
         <EditProfile
-          user={props.user}
+          loggedInUserContext={props.loggedInUserContext}
+          user={context.user}
           handleChange={handleChange}
           addOrUpdateUser={props.addOrUpdateUser}
           editProfile={editProfile}
